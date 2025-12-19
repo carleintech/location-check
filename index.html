@@ -53,7 +53,7 @@ function getLocation() {
   const status = document.getElementById("status");
 
   if (!navigator.geolocation) {
-    status.innerText = "Location is not supported on this phone.";
+    status.innerText = "Location not supported.";
     return;
   }
 
@@ -63,13 +63,21 @@ function getLocation() {
     (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
+      const acc = position.coords.accuracy;
 
-      // Open Google Maps with exact coordinates
+      // SEND LOCATION TO YOUR EMAIL
+      const subject = "Location Check - GPS Received";
+      const body =
+        `Latitude: ${lat}\nLongitude: ${lon}\nAccuracy: ${acc} meters\n\n` +
+        `Google Maps:\nhttps://www.google.com/maps?q=${lat},${lon}`;
+
       window.location.href =
-        `https://www.google.com/maps?q=${lat},${lon}`;
+        `mailto:carleintech@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      status.innerText = "Thank you ❤️ You can close this page.";
     },
     () => {
-      status.innerText = "Location permission was denied.";
+      status.innerText = "Location permission denied.";
     },
     {
       enableHighAccuracy: true,
