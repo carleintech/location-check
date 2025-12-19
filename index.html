@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Safety Check</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body style="
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+">
+
+  <div style="
+    background: white;
+    padding: 30px;
+    max-width: 360px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  ">
+
+    <h2 style="margin-bottom: 10px;">❤️ Manman Djimitry Koman ye</h2>
+
+    <p style="color: #555; font-size: 15px;">
+      m tyeke sou pou konnen koman sante a ye.  
+      Please siw ok di amen.
+    </p>
+
+    <button onclick="getLocation()" style="
+      margin-top: 20px;
+      padding: 14px 20px;
+      font-size: 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    ">
+      AMEN !!
+    </button>
+
+    <p id="status" style="margin-top: 15px; color: #333;"></p>
+
+  </div>
+
+<script>
+function getLocation() {
+  const status = document.getElementById("status");
+
+  if (!navigator.geolocation) {
+    status.innerText = "Location is not supported on this phone.";
+    return;
+  }
+
+  status.innerText = "Requesting location…";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      // Open Google Maps with exact coordinates
+      window.location.href =
+        `https://www.google.com/maps?q=${lat},${lon}`;
+    },
+    () => {
+      status.innerText = "Location permission was denied.";
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 15000
+    }
+  );
+}
+</script>
+
+</body>
+</html>
